@@ -1,0 +1,61 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>canvas 案例</title>
+    <script>
+        //window.addEventListener('load',eventWindowLoaded,false);JS事件流
+        //function eventWindowLoaded(){
+        //    canvasApp();
+        //}
+        window.onload=function(){
+            canvasAppOne();
+            canvasAppTwo();
+        }
+        function drawBorder(ctx,x, y, w, h,color) {
+                  ctx.save();
+                  ctx.strokeStyle = color;
+                  ctx.lineWidth =5;
+                  ctx.strokeRect(x, y, w, h);
+                  ctx.restore();
+              } 
+        function canvasAppOne(){
+          var theCanvas = document.getElementById('canvasOne');
+          var context = theCanvas.getContext('2d');
+          var spaceShip = new Image();
+          spaceShip.src='./images/ship.png';
+          spaceShip.onload=function eventShipLoaed(){
+            context.drawImage(spaceShip,0,0);
+            drawBorder(context,0,0,32,32,'red');
+
+            context.drawImage(spaceShip,0,32,68,68);
+            drawBorder(context,0,32,68,68,'red');
+
+            context.drawImage(spaceShip,10,10,16,16,100,100,20,20);
+            drawBorder(context,100,100,20,20,'red');
+          }
+        }
+      
+        function canvasAppTwo(){
+           var theCanvas = document.getElementById('canvasTwo');
+                var context = theCanvas.getContext('2d');
+                var canvasOne = document.getElementById('canvasOne');
+                document.getElementById('canvasTwo').onclick = function () {
+        
+                  context.drawImage(canvasOne, 50, 50, 100, 100, 50, 50, 100, 100);
+                  drawBorder(context,50, 50, 100, 100,"blue");
+                }
+        }
+    </script>
+</head>
+<body>
+   <div>
+       <canvas id="canvasOne" width="200" height="200" style="border:solid 1px #ccc">
+            Your browser does not support the HTML 5 Canvas.
+        </canvas>
+        <canvas id="canvasTwo" width="200" height="200" style="border:solid 1px #ccc">
+            Your browser does not support the HTML 5 Canvas.
+        </canvas>
+   </div> 
+</body>
+</html>

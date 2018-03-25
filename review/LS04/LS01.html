@@ -1,0 +1,66 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>canvas 案例</title>
+    <script>
+    
+        window.onload=function(){
+            canvasApp();
+        }
+        function canvasApp(){
+            var theCanvas = document.getElementById('canvas');
+            var context=theCanvas.getContext('2d');
+            var speed = 5;
+            var angle = 45;
+            var radians = angle * Math.PI / 180;
+            var xunits = Math.cos(radians) * speed;
+            var yunits = Math.sin(radians) * speed;
+            var ball ={x:20,y:20};
+            var count = 0;
+
+            function drawScreen(){
+                if(count == 1){
+                    count =0;
+                    context.fillStyle='#EEEEEE';
+                    context.fillRect(0,0,theCanvas.width,theCanvas.height);
+                    context.strokeStyle='#000000';
+                    context.strokeRect(1,1,theCanvas.width-2,theCanvas.height-2);
+                    ball.x+=xunits;
+                    ball.y +=yunits;
+                    context.fillStyle ='#000000';
+                    context.beginPath();
+                    context.arc(ball.x,ball.y,15,0,Math.PI*2,true);
+                    context.closePath();
+                    context.fill();
+                }
+                else{
+                    count++;
+                }
+                animationHandle=requestAnimationFrame(drawScreen);
+            }
+            drawScreen();
+            var i=1;
+            document.onclick = function(){
+                if(1 == i){
+                    cancelAnimationFrame(animationHandle);
+                    i=0;
+                }
+                else{
+                    i++;
+                    drawScreen();
+                }
+                
+            }
+            
+        }
+    </script>
+</head>
+<body>
+   <div>
+       <canvas id='canvas' width="500" height="500" style="border:2px solid #ccc">
+            your browser does not support the html 5 canvas.
+       </canvas>
+   </div> 
+</body>
+</html>
